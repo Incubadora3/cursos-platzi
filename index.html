@@ -112,7 +112,7 @@
     
     // IMPORTANTE: Esta línea arma la URL correcta para Archive.org
     // Usamos el collectionId del curso y el nombre del archivo mp4
-    const videoUrl = `https://archive.org/embed/${video.collectionId}?file=${video.file}&autoplay=1`;
+   const videoUrl = `https://archive.org/download/${video.collectionId}/${video.file}`;
     
     document.getElementById('main-player').src = videoUrl;
     document.getElementById('display-title').textContent = video.title;
