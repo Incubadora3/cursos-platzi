@@ -7,6 +7,12 @@ const courses = [
     ]
   },
   {
+    name: "C04 · PERPLEXITY AI",
+    videos: [
+      { title: "C04E07 — Análisis de Documentos", url: "c-04-e-07-analisis-documentos-perplexity" }
+    ]
+  },
+  {
     name: "C05 · GENERACIÓN DE IMÁGENES CON IA",
     videos: [
       { title: "C05E17 — Retoque Digital con IA", url: "c-05-e-17-retoque-digital-imagenes-ia" },
@@ -15,10 +21,10 @@ const courses = [
     ]
   },
   {
-    name: "OTROS CURSOS DISPONIBLES",
+    name: "OTROS CURSOS",
     videos: [
-      { title: "Perplexity IA", url: "perplexity-ia-la-guia-definitiva-para-principiantes" },
-      { title: "Runway Gen-2", url: "runway-gen-2-guia-paso-a-paso-para-crear-videos-con-ia" }
+      { title: "C03E05 — Runway Gen-2", url: "c-03-e-05-runway-lff-transforma-videos" },
+      { title: "C02E13 — Playgrounds IA", url: "c-02-e-13-playgrounds-de-ia" }
     ]
   }
 ];
