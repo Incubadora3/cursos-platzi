@@ -106,13 +106,13 @@
             document.getElementById(`course-${idx}`).classList.toggle('active');
         }
 
-        function loadVideo(index) {
+       function loadVideo(index) {
     currentIndex = index;
     const video = flatPlaylist[currentIndex];
     
-    // IMPORTANTE: Esta línea arma la URL correcta para Archive.org
-    // Usamos el collectionId del curso y el nombre del archivo mp4
-   const videoUrl = `https://archive.org/download/${video.collectionId}/${video.file}`;
+    // Usamos encodeURI para que los símbolos especiales de los nombres no rompan el link
+    const fileName = encodeURI(video.file);
+    const videoUrl = `https://archive.org/embed/${video.collectionId}?file=${fileName}`;
     
     document.getElementById('main-player').src = videoUrl;
     document.getElementById('display-title').textContent = video.title;
