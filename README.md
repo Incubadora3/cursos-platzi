@@ -21,7 +21,7 @@ const courses = [
     ]
   },
   {
-    name: "OTROS CURSOS",
+    name: "OTROS CURSOS DISPONIBLES",
     videos: [
       { title: "C03E05 — Runway Gen-2", url: "c-03-e-05-runway-lff-transforma-videos" },
       { title: "C02E13 — Playgrounds IA", url: "c-02-e-13-playgrounds-de-ia" }
