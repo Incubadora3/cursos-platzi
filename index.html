@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CURSOS PLATZI — INCUBADORA</title>
+<meta name="theme-color" content="#0a1628">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a1628; --sidebar-w: 270px; --sidebar: #0d1f3a;
+    --accent: #e8a020; --text: #e8e8e8; --muted: #556;
+    --hover: #112240; --active: #152a4a; --border: rgba(255,255,255,0.07);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; overflow: hidden; }
+  .sidebar { width: 0; min-width: 0; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; height: 100vh; flex-shrink: 0; transition: 0.3s; }
+  .sidebar.open { position: fixed; top: 0; left: 0; width: var(--sidebar-w); min-width: var(--sidebar-w); z-index: 1000; }
+  .sidebar-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; min-width: var(--sidebar-w); }
+  .sidebar-header img { height: 32px; opacity: 0.9; }
+  .close-btn { background: none; border: none; color: var(--muted); font-size: 1.3rem; cursor: pointer; padding: 4px 8px; border-radius: 6px; }
+  .close-btn:hover { color: var(--text); }
+  .courses-list { min-width: var(--sidebar-w); overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: #333 transparent; }
+  .course-item { padding: 11px 16px; cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 2px; color: var(--muted); border-left: 3px solid transparent; display: flex; align-items: center; justify-content: space-between; }
+  .course-item:hover { background: var(--hover); color: var(--text); }
+  .course-item.active { color: var(--accent); border-left-color: var(--accent); background: var(--active); }
+  .course-submenu { display: none; background: rgba(0,0,0,0.2); border-left: 2px solid rgba(232,160,32,0.2); margin-left: 14px; }
+  .course-submenu.open { display: block; }
+  .single-video-item { padding: 8px 10px 8px 14px; cursor: pointer; font-size: 0.8rem; color: #667; border-left: 2px solid transparent; }
+  .single-video-item:hover { background: var(--hover); color: var(--text); }
+  .single-video-item.playing { color: var(--accent); border-left-color: var(--accent); background: rgba(232,160,32,0.05); }
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; height: 100vh; min-width: 0; background: var(--bg); position: relative; }
+  .hero { width: 100%; height: 200px; background: url('fondo-ia.jpg') center/cover no-repeat; position: relative; flex-shrink: 0; }
+  .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 70%; background: linear-gradient(to bottom, transparent, var(--bg)); }
+  .topbar { position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: center; padding: 8px 14px; gap: 12px; z-index: 10; }
+  .hamburger { background: rgba(255,255,255,0.07); border: 1px solid var(--border); color: var(--text); font-size: 1.2rem; cursor: pointer; padding: 5px 10px; border-radius: 8px; }
+  .topbar-info { display: flex; flex-direction: column; gap: 1px; }
+  .topbar-course { font-size: 0.62rem; font-weight: 700; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; }
+  .topbar-title { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 1.5px; color: var(--text); }
+  .video-wrapper { width: 100%; aspect-ratio: 16/9; background: #000; flex-shrink: 0; }
+  .video-wrapper iframe { width: 100%; height: 100%; border: none; }
+  .info-bar { flex-shrink: 0; padding: 10px 16px 12px; display: flex; flex-direction: column; gap: 8px; }
+  .info-counter { font-size: 0.68rem; color: var(--muted); }
+  .controls { display: flex; gap: 8px; }
+  .btn { background: rgba(255,255,255,0.09); color: #fff; border: 1px solid rgba(255,255,255,0.15); padding: 11px 10px; border-radius: 50px; font-size: 0.9rem; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600; flex: 1; text-align: center; }
+  .btn:hover { background: rgba(255,255,255,0.17); border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <img src="incubadora_logo_blanco.png" alt="INCUBADORA">
+    <button class="close-btn" onclick="toggleSidebar()">✕</button>
+  </div>
+  <div class="courses-list" id="courses-list"></div>
+</div>
+
+<div class="main">
+  <div class="hero"></div>
+  <div class="topbar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-info">
+      <div class="topbar-course" id="topbar-course">INCUBADORA</div>
+      <div class="topbar-title" id="topbar-title">Selecciona un video</div>
+    </div>
+  </div>
+  <div class="video-wrapper">
+    <iframe id="iframe-player" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+  </div>
+  <div class="info-bar">
+    <div class="info-counter" id="info-counter"></div>
+    <div class="controls">
+      <button class="btn" onclick="prev()">⬅ Anterior</button>
+      <button class="btn" onclick="next()">Siguiente ➡</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const courses = [
+  {
+    name: "C01 · PRODUCTIVIDAD Y TRABAJO REMOTO",
+    videos: [
+      { title: "Clase 1 — Herramientas", url: "c01e01-productividad" },
+    ]
+  },
+  {
+    name: "C04 · PERPLEXITY AI",
+    videos: [
+      { title: "Clase 1 — Introducción", url: "c04e01-perplexity" },
+    ]
+  }
+];
+
+let allVideos = [];
+courses.forEach((course, ci) => {
+  course.videos.forEach((v, vi) => {
+    allVideos.push({ ...v, ci, vi, courseName: course.name });
+  });
+});
+
+let current = 0;
+let activeCourse = -1;
+
+function load(gIdx) {
+  if (allVideos.length === 0) return;
+  current = (gIdx + allVideos.length) % allVideos.length;
+  const v = allVideos[current];
+  document.getElementById('topbar-course').textContent = v.courseName;
+  document.getElementById('topbar-title').textContent = v.title;
+  document.getElementById('info-counter').textContent = `${current + 1} / ${allVideos.length}`;
+  document.getElementById('iframe-player').src = `https://archive.org/embed/${v.url}?autoplay=1`;
+  activeCourse = v.ci;
+  renderSidebar();
+}
+
+function next() { load(current + 1); }
+function prev() { load(current - 1); }
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+
+function renderSidebar() {
+  const cl = document.getElementById('courses-list');
+  cl.innerHTML = courses.map((course, ci) => {
+    const isActive = activeCourse === ci;
+    return `<div>
+      <div class="course-item${isActive ? ' active' : ''}" onclick="activeCourse = ${isActive ? -1 : ci}; renderSidebar()">
+        <span>${course.name}</span><span>▶</span>
+      </div>
+      <div class="course-submenu${isActive ? ' open' : ''}">${
+        course.videos.map((v, vi) => {
+          const gIdx = allVideos.findIndex(x => x.ci === ci && x.vi === vi);
+          return `<div class="single-video-item${gIdx === current ? ' playing' : ''}" onclick="load(${gIdx})">${v.title}</div>`;
+        }).join('')
+      }</div>
+    </div>`;
+  }).join('');
+}
+
+renderSidebar();
+load(0);
+</script>
+</body>
+</html>
