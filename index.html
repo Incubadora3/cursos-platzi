@@ -83,21 +83,22 @@
         function init() {
             const menu = document.getElementById('accordion-menu');
             courses.forEach((course, cIdx) => {
-                const section = document.createElement('div');
-                section.innerHTML = `
-                    <div class="course-header" onclick="toggleCourse(${cIdx})">
-                        ${course.name} <span>▼</span>
-                    </div>
-                    <div class="chapter-list" id="course-${cIdx}">
-                        ${course.chapters.map((ch) => {
-                            const globalIdx = flatPlaylist.length;
-                            flatPlaylist.push(ch);
-                            return `<div class="video-item" id="item-${globalIdx}" onclick="loadVideo(${globalIdx})">${ch.title}</div>`;
-                        }).join('')}
-                    </div>
-                `;
-                menu.appendChild(section);
-            });
+            const section = document.createElement('div');
+            section.innerHTML = `
+                <div class="course-header" onclick="toggleCourse(${cIdx})">
+                    ${course.name} <span>▼</span>
+                </div>
+                <div class="chapter-list" id="course-${cIdx}">
+                    ${course.chapters.map((ch) => {
+                        const globalIdx = flatPlaylist.length;
+                        // Guardamos el ID de la colección junto con el capítulo
+                        flatPlaylist.push({ ...ch, collectionId: course.collectionId });
+                        return `<div class="video-item" id="item-${globalIdx}" onclick="loadVideo(${globalIdx})">${ch.title}</div>`;
+                    }).join('')}
+                </div>
+            `;
+            menu.appendChild(section);
+        });
             loadVideo(0);
         }
 
@@ -106,13 +107,21 @@
         }
 
         function loadVideo(index) {
-            currentIndex = index;
-            const video = flatPlaylist[currentIndex];
-            document.getElementById('main-player').src = `https://archive.org/embed/${video.id}?autoplay=1`;
-            document.getElementById('display-title').textContent = video.title;
-            document.querySelectorAll('.video-item').forEach(el => el.classList.remove('playing'));
-            document.getElementById(`item-${index}`).classList.add('playing');
-        }
+    currentIndex = index;
+    const video = flatPlaylist[currentIndex];
+    
+    // IMPORTANTE: Esta línea arma la URL correcta para Archive.org
+    // Usamos el collectionId del curso y el nombre del archivo mp4
+    const videoUrl = `https://archive.org/embed/${video.collectionId}?file=${video.file}&autoplay=1`;
+    
+    document.getElementById('main-player').src = videoUrl;
+    document.getElementById('display-title').textContent = video.title;
+    
+    // Gestionar la clase visual de "reproduciendo"
+    document.querySelectorAll('.video-item').forEach(el => el.classList.remove('playing'));
+    const activeItem = document.getElementById(`item-${index}`);
+    if (activeItem) activeItem.classList.add('playing');
+}
 
         function changeVideo(dir) {
             let next = currentIndex + dir;
