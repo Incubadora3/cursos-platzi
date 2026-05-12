@@ -10,7 +10,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; overflow: hidden; }
         
-        /* Menú Lateral */
         .sidebar { width: 320px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; }
         .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); text-align: center; }
         .sidebar-header img { height: 32px; }
@@ -25,16 +24,16 @@
         .video-item:hover { color: #fff; background: #112240; }
         .video-item.playing { color: var(--accent); background: #152a4a; font-weight: bold; border-left: 3px solid var(--accent); }
 
-        /* Area Principal */
         .main { flex: 1; display: flex; flex-direction: column; }
         .topbar { padding: 15px 25px; background: #0d1f3a; border-bottom: 1px solid var(--border); }
         .topbar-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 1px; color: #fff; }
-        .video-wrapper { flex: 1; background: #000; }
+        
+        .video-wrapper { flex: 1; background: #000; position: relative; }
         iframe { width: 100%; height: 100%; border: none; }
         
         .controls { padding: 20px; display: flex; justify-content: center; gap: 15px; background: #0d1f3a; border-top: 1px solid var(--border); }
-        .btn { padding: 12px 35px; border-radius: 50px; border: none; background: #22334d; color: #fff; cursor: pointer; font-weight: bold; }
-        .btn:hover { background: var(--accent); }
+        .btn { padding: 12px 35px; border-radius: 50px; border: none; background: #22334d; color: #fff; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn:hover { background: var(--accent); transform: translateY(-2px); }
     </style>
 </head>
 <body>
@@ -99,61 +98,61 @@
             {
                 name: "C03 · PASARELA LFF TRANSFORMA VIDEOS",
                 chapters: [
-                    { title: "C03E01 — Como crear videos profesionales IA", id: "c03e01-como-crear-videos-profesionales-ia" },
-                    { title: "C03E02 — Los 4 componentes rápido efectivo", id: "c03e02-los-4-componentes-rapido-efectivo" },
-                    { title: "C03E03 — Prompts JSON para video IA", id: "c03e03-prompts-json-para-video-ia" },
-                    { title: "C03E04 — Como crear videos IA 5 minutos", id: "c03e04-como-crear-videos-ia-5-minutos" },
+                    { title: "C03E01 — Videos profesionales IA", id: "c03e01-como-crear-videos-profesionales-ia" },
+                    { title: "C03E02 — Componentes efectivos", id: "c03e02-los-4-componentes-rapido-efectivo" },
+                    { title: "C03E03 — Prompts JSON para video", id: "c03e03-prompts-json-para-video-ia" },
+                    { title: "C03E04 — Videos IA 5 minutos", id: "c03e04-como-crear-videos-ia-5-minutos" },
                     { title: "C03E05 — Runway LFF transforma videos", id: "c-03-e-05-runway-lff-transforma-videos" },
-                    { title: "C03E06 — Storyboard Sketch to Video Higgsfield", id: "c03e06-storyboard-sketch-to-video-higgsfield" },
-                    { title: "C03E07 — Vídeos terror ochentero Luma Machine", id: "c03e07-videos-terror-ochentero-luma-machine" },
-                    { title: "C03E08 — Vídeos cinematográficos KlingAI", id: "c03e08-videos-cinematograficos-kling-ai" },
+                    { title: "C03E06 — Storyboard Higgsfield", id: "c03e06-storyboard-sketch-to-video-higgsfield" },
+                    { title: "C03E07 — Luma Machine", id: "c03e07-videos-terror-ochentero-luma-machine" },
+                    { title: "C03E08 — KlingAI Cinematográficos", id: "c03e08-videos-cinematograficos-kling-ai" },
                     { title: "C03E09 — Avatares Wan Higgsfield", id: "c03e09-avatares-wan-higgsfield" },
-                    { title: "C03E10 — Acto segundo anima rostro torso manos", id: "c03e10-acto-segundo-anima-rostro-torso-manos" },
-                    { title: "C03E11 — Comerciales emisión VEO3", id: "c03e11-comerciales-emision-veo3" },
-                    { title: "C03E12 — Videoblogs virales Veo3", id: "c03e12-videoblogs-virales-veo3" },
-                    { title: "C03E13 — Fórmulas videos virales Sora2", id: "c03e13-formulas-videos-virales-sora2" },
-                    { title: "C03E14 — Identidad digital cameos Sora2", id: "c03e14-identidad-digital-cameos-sora2" },
-                    { title: "C03E15 — Vídeos cinematográficos Hailuo AI", id: "c03e15-videos-cinematograficos-hailuo-ai" },
-                    { title: "C03E16 — Música cinematográfica Suno Udio", id: "c03e16-musica-cinematografica-suno-udio" }
+                    { title: "C03E10 — Acto Segundo", id: "c03e10-acto-segundo-anima-rostro-torso-manos" },
+                    { title: "C03E11 — Comerciales VEO3", id: "c03e11-comerciales-emision-veo3" },
+                    { title: "C03E12 — Videoblogs Veo3", id: "c03e12-videoblogs-virales-veo3" },
+                    { title: "C03E13 — Fórmulas Sora2", id: "c03e13-formulas-videos-virales-sora2" },
+                    { title: "C03E14 — Identidad Sora2", id: "c03e14-identidad-digital-cameos-sora2" },
+                    { title: "C03E15 — Hailuo AI", id: "c03e15-videos-cinematograficos-hailuo-ai" },
+                    { title: "C03E16 — Música Suno Udio", id: "c03e16-musica-cinematografica-suno-udio" }
                 ]
             },
             {
                 name: "C04 · ANÁLISIS DOCUMENTOS PERPLEJIDAD",
                 chapters: [
-                    { title: "C04E01 — Perplejidad respuestas fuentes verificables", id: "c04e01-perplejidad-respuestas-fuentes-verificables" },
+                    { title: "C04E01 — Respuestas verificables", id: "c04e01-perplejidad-respuestas-fuentes-verificables" },
                     { title: "C04E02 — Conoce Perplejidad AI", id: "c04e02-conoce-perplejidad-ai" },
-                    { title: "C04E03 — Como elegir plan Perplejidad", id: "c04e03-como-elegir-plan-perplejidad" },
-                    { title: "C04E04 — Versiones Perplexity web escritorio móvil", id: "c04e04-versiones-perplexity-web-escritorio-movil" },
-                    { title: "C04E05 — Como hacer prompts Perplejidad", id: "c04e05-como-hacer-prompts-perplejidad" },
-                    { title: "C04E06 — Investigación profunda Perplejidad", id: "c04e06-investigacion-profunda-perplejidad" },
+                    { title: "C04E03 — Plan Perplejidad", id: "c04e03-como-elegir-plan-perplejidad" },
+                    { title: "C04E04 — Versiones Perplexity", id: "c04e04-versiones-perplexity-web-escritorio-movil" },
+                    { title: "C04E05 — Prompts Perplejidad", id: "c04e05-como-hacer-prompts-perplejidad" },
+                    { title: "C04E06 — Investigación Profunda", id: "c04e06-investigacion-profunda-perplejidad" },
                     { title: "C04E07 — Análisis documentos Perplejidad", id: "c-04-e-07-analisis-documentos-perplexity" },
-                    { title: "C04E08 — Combina Perplejidad con otras AI", id: "c04e08-combina-perplejidad-con-otras-ai" },
-                    { title: "C04E09 — Pantallas temáticas Perplejidad", id: "c04e09-pantallas-tematicas-perplejidad" },
-                    { title: "C04E10 — Espacios tareas programadas Perplejidad", id: "c04e10-espacios-tareas-programadas-perplejidad" },
-                    { title: "C04E11 — Crear aplicaciones HTML Perplejidad", id: "c04e11-crear-aplicaciones-html-perplejidad" },
-                    { title: "C04E12 — Recorte diario IA Perplejidad", id: "c04e12-recorte-diario-ia-perplejidad" },
-                    { title: "C04E13 — Perplexity Comet navegador Chrome", id: "c04e13-perplexity-comet-navegador-chrome" }
+                    { title: "C04E08 — Combina Perplejidad", id: "c04e08-combina-perplejidad-con-otras-ai" },
+                    { title: "C04E09 — Pantallas temáticas", id: "c04e09-pantallas-tematicas-perplejidad" },
+                    { title: "C04E10 — Espacios tareas", id: "c04e10-espacios-tareas-programadas-perplejidad" },
+                    { title: "C04E11 — Aplicaciones HTML", id: "c04e11-crear-aplicaciones-html-perplejidad" },
+                    { title: "C04E12 — Recorte diario IA", id: "c04e12-recorte-diario-ia-perplejidad" },
+                    { title: "C04E13 — Perplexity Comet", id: "c04e13-perplexity-comet-navegador-chrome" }
                 ]
             },
             {
                 name: "C05 · RETOQUE DIGITAL IMAGENES IA",
                 chapters: [
-                    { title: "C05E01 — Creación imágenes IA Marketing", id: "c05e01-creacion-imagenes-ia-marketing" },
-                    { title: "C05E02 — Creatividad AI Arte Marketing", id: "c05e02-creatividad-ai-arte-marketing" },
-                    { title: "C05E03 — Etica Responsabilidad Imágenes IA", id: "c05e03-etica-responsabilidad-imagenes-ia" },
-                    { title: "C05E04 — Formatos Aspectos Imágenes IA", id: "c05e04-formatos-aspectos-imagenes-ia" },
-                    { title: "C05E05 — Creación imágenes Modelos IA", id: "c05e05-creacion-imagenes-modelos-ia" },
-                    { title: "C05E06 — Anatomía Prompts Imágenes AI", id: "c05e06-anatomia-prompts-imagenes-ai" },
-                    { title: "C05E07 — Mejorando Imágenes IA", id: "c05e07-mejorando-imagenes-ia" },
-                    { title: "C05E08 — Imágenes Producto Flux IA", id: "c05e08-imagenes-producto-flux-ia" },
-                    { title: "C05E09 — Prototipado Productos Flux Photoshop", id: "c05e09-prototipado-productos-flux-photoshop" },
-                    { title: "C05E10 — Imágenes Producto Loras Flux", id: "c05e10-imagenes-producto-loras-flux" },
-                    { title: "C05E11 — Imágenes Personalizadas Modelos IA", id: "c05e11-imagenes-personalizadas-modelos-ia" },
-                    { title: "C05E12 — Creación imágenes Midjourney Discord", id: "c05e12-creacion-imagenes-midjourney-discord" },
+                    { title: "C05E01 — Imágenes IA Marketing", id: "c05e01-creacion-imagenes-ia-marketing" },
+                    { title: "C05E02 — Creatividad AI", id: "c05e02-creatividad-ai-arte-marketing" },
+                    { title: "C05E03 — Ética Imágenes IA", id: "c05e03-etica-responsabilidad-imagenes-ia" },
+                    { title: "C05E04 — Formatos Aspectos", id: "c05e04-formatos-aspectos-imagenes-ia" },
+                    { title: "C05E05 — Modelos IA", id: "c05e05-creacion-imagenes-modelos-ia" },
+                    { title: "C05E06 — Anatomía Prompts", id: "c05e06-anatomia-prompts-imagenes-ai" },
+                    { title: "C05E07 — Mejorando Imágenes", id: "c05e07-mejorando-imagenes-ia" },
+                    { title: "C05E08 — Producto Flux IA", id: "c05e08-imagenes-producto-flux-ia" },
+                    { title: "C05E09 — Prototipado Photoshop", id: "c05e09-prototipado-productos-flux-photoshop" },
+                    { title: "C05E10 — Loras Flux", id: "c05e10-imagenes-producto-loras-flux" },
+                    { title: "C05E11 — Modelos Personalizados", id: "c05e11-imagenes-personalizadas-modelos-ia" },
+                    { title: "C05E12 — Midjourney Discord", id: "c05e12-creacion-imagenes-midjourney-discord" },
                     { title: "C05E13 — Interfaz web Midjourney", id: "c05e13-interfaz-web-midjourney" },
-                    { title: "C05E14 — Parámetros Avanzados Midjourney", id: "c05e14-parametros-avanzados-midjourney" },
-                    { title: "C05E15 — Imágenes Midjourney Estilización", id: "c05e15-imagenes-midjourney-parametros-estilizacion" },
-                    { title: "C05E16 — Midjourney Marketing Prototipado", id: "c05e16-midjourney-marketing-prototipado" },
+                    { title: "C05E14 — Parámetros Avanzados", id: "c05e14-parametros-avanzados-midjourney" },
+                    { title: "C05E15 — Estilización", id: "c05e15-imagenes-midjourney-parametros-estilizacion" },
+                    { title: "C05E16 — Marketing Prototipado", id: "c05e16-midjourney-marketing-prototipado" },
                     { title: "C05E17 — Retoque Digital Imágenes IA", id: "c-05-e-17-retoque-digital-imagenes-ia" }
                 ]
             }
@@ -171,7 +170,7 @@
                         ${course.name} <span>▼</span>
                     </div>
                     <div class="chapter-list" id="course-${cIdx}">
-                        ${course.chapters.map((ch, chIdx) => {
+                        ${course.chapters.map((ch) => {
                             const globalIdx = flatPlaylist.length;
                             flatPlaylist.push(ch);
                             return `<div class="video-item" id="item-${globalIdx}" onclick="loadVideo(${globalIdx})">${ch.title}</div>`;
@@ -184,8 +183,7 @@
         }
 
         function toggleCourse(idx) {
-            const list = document.getElementById(`course-${idx}`);
-            list.classList.toggle('active');
+            document.getElementById(`course-${idx}`).classList.toggle('active');
         }
 
         function loadVideo(index) {
