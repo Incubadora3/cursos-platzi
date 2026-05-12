@@ -10,29 +10,29 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; overflow: hidden; }
         
-        /* Sidebar con Acordeón */
-        .sidebar { width: 300px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; }
+        /* Menú Lateral */
+        .sidebar { width: 320px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; }
         .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); text-align: center; }
         .sidebar-header img { height: 32px; }
         
-        .course-header { padding: 15px 20px; cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--accent); background: rgba(0,0,0,0.1); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; }
+        .course-header { padding: 15px 20px; cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--accent); background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
         .course-header:hover { background: rgba(232, 160, 32, 0.1); }
         
-        .chapter-list { display: none; background: rgba(0,0,0,0.2); }
+        .chapter-list { display: none; background: rgba(0,0,0,0.3); }
         .chapter-list.active { display: block; }
         
-        .video-item { padding: 10px 25px; cursor: pointer; font-size: 0.8rem; color: #aaa; border-bottom: 1px solid rgba(255,255,255,0.02); }
+        .video-item { padding: 10px 25px; cursor: pointer; font-size: 0.8rem; color: #aaa; border-bottom: 1px solid rgba(255,255,255,0.02); transition: 0.2s; }
         .video-item:hover { color: #fff; background: #112240; }
         .video-item.playing { color: var(--accent); background: #152a4a; font-weight: bold; border-left: 3px solid var(--accent); }
 
-        /* Contenido Principal */
+        /* Area Principal */
         .main { flex: 1; display: flex; flex-direction: column; }
         .topbar { padding: 15px 25px; background: #0d1f3a; border-bottom: 1px solid var(--border); }
-        .topbar-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 1px; }
+        .topbar-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 1px; color: #fff; }
         .video-wrapper { flex: 1; background: #000; }
         iframe { width: 100%; height: 100%; border: none; }
         
-        .controls { padding: 20px; display: flex; justify-content: center; gap: 15px; background: #0d1f3a; }
+        .controls { padding: 20px; display: flex; justify-content: center; gap: 15px; background: #0d1f3a; border-top: 1px solid var(--border); }
         .btn { padding: 12px 35px; border-radius: 50px; border: none; background: #22334d; color: #fff; cursor: pointer; font-weight: bold; }
         .btn:hover { background: var(--accent); }
     </style>
@@ -40,7 +40,7 @@
 <body>
 
     <nav class="sidebar">
-        <div class="sidebar-header"><img src="https://incubadora3.github.io/cursos-platzi/logo.png" alt="GRÉKOS"></div>
+        <div class="sidebar-header"><img src="https://incubadora3.github.io/cursos-platzi/logo.png" alt="INCUBADORA"></div>
         <div id="accordion-menu"></div>
     </nav>
 
@@ -54,30 +54,110 @@
     </main>
 
     <script>
-       const courses = [
-    {
-        // Título corregido según tu indicación
-        name: "C01 · VPN Y MFA EN EQUIPOS REMOTOS",
-        chapters: [
-            { title: "C01E01 — Productividad", id: "c01e01-productividad" },
-            { title: "C01E02 — Productividad II", id: "c01e02-productividad" },
-            { title: "C01E03 — Trabajo Remoto Modelos", id: "c01e03-trabajo-remoto-modelos" },
-            { title: "C01E04 — Como el Micrófono", id: "c01e04-como-el-microfono" },
-            { title: "C01E05 — Acuerdos Mentales", id: "c01e05-acuerdos-mentales" },
-            { title: "C01E06 — Chat vs Correo", id: "c01e06-chat-vs-correo" },
-            { title: "C01E08 — Protocolo Instrucciones Claras", id: "c01e08-protocolo-de-validacion-para-instrucciones-claras" },
-            { title: "C01E09 — Mapeo Digital de Procesos", id: "c01e09-mapeo-digital-de-procesos-en-equipos-remotos" },
-            { title: "C01E10 — Conectar Herramientas Colaborativas", id: "c01e10-conectar-herramientas-de-trabajo-colaborativo" },
-            { title: "C01E11 — Sincroniza Calendario y Chat", id: "c01e11-sincroniza-calendario-y-chat-para-proteger-tu-concentracion" },
-            { title: "C01E12 — Ceremonias Scrum en Remoto", id: "c01e12-ceremonias-de-scrum-en-equipos-remotos" },
-            { title: "C01E13 — Reclutamiento Ventana Colaboración", id: "c01e13-reclutamiento-global-ventana-de-colaboracion-y-onboarding-remoto" },
-            { title: "C01E14 — Seis Fases Migrar Trabajo Remoto", id: "c01e14-seis-fases-para-migrar-a-trabajo-remoto" },
-            { title: "C01E15 — Métricas Actividad vs Resultados", id: "c01e15-metricas-de-actividad-vs-metricas-de-resultado" },
-            { title: "C01E16 — VPN Y MFA En Equipos Remotos", id: "c-01-e-16-vpn-y-mfa-en-equipos-remotos" }
-        ]
-    }
-    // Después puedes seguir agregando C02, C03, etc.
-];
+        const courses = [
+            {
+                name: "C01 · VPN Y MFA EN EQUIPOS REMOTOS",
+                chapters: [
+                    { title: "C01E01 — Productividad", id: "c01e01-productividad" },
+                    { title: "C01E02 — Productividad II", id: "c01e02-productividad" },
+                    { title: "C01E03 — Trabajo Remoto Modelos", id: "c01e03-trabajo-remoto-modelos" },
+                    { title: "C01E04 — Como el Micrófono", id: "c01e04-como-el-microfono" },
+                    { title: "C01E05 — Acuerdos Mentales", id: "c01e05-acuerdos-mentales" },
+                    { title: "C01E06 — Chat vs Correo", id: "c01e06-chat-vs-correo" },
+                    { title: "C01E08 — Protocolo Instrucciones Claras", id: "c01e08-protocolo-de-validacion-para-instrucciones-claras" },
+                    { title: "C01E09 — Mapeo Digital de Procesos", id: "c01e09-mapeo-digital-de-procesos-en-equipos-remotos" },
+                    { title: "C01E10 — Conectar Herramientas Colaborativas", id: "c01e10-conectar-herramientas-de-trabajo-colaborativo" },
+                    { title: "C01E11 — Sincroniza Calendario y Chat", id: "c01e11-sincroniza-calendario-y-chat-para-proteger-tu-concentracion" },
+                    { title: "C01E12 — Ceremonias Scrum en Remoto", id: "c01e12-ceremonias-de-scrum-en-equipos-remotos" },
+                    { title: "C01E13 — Reclutamiento Ventana Colaboración", id: "c01e13-reclutamiento-global-ventana-de-colaboracion-y-onboarding-remoto" },
+                    { title: "C01E14 — Seis Fases Migrar Trabajo Remoto", id: "c01e14-seis-fases-para-migrar-a-trabajo-remoto" },
+                    { title: "C01E15 — Métricas Actividad vs Resultados", id: "c01e15-metricas-de-actividad-vs-metricas-de-resultado" },
+                    { title: "C01E16 — VPN Y MFA En Equipos Remotos", id: "c-01-e-16-vpn-y-mfa-en-equipos-remotos" }
+                ]
+            },
+            {
+                name: "C02 · PARQUES INFANTILES DE IA",
+                chapters: [
+                    { title: "C02E01 — Estructura de prompts", id: "c02e01-estructura-de-prompts" },
+                    { title: "C02E02 — Como crear el prompt perfecto", id: "c02e02-como-crear-el-prompt-perfecto" },
+                    { title: "C02E03 — Que son los incrustaciones", id: "c02e03-que-son-los-incrustaciones" },
+                    { title: "C02E04 — Indicaciones de rol", id: "c02e04-indicaciones-de-rol" },
+                    { title: "C02E05 — ChatGPT vs Claude vs Géminis", id: "c02e05-chat-gpt-vs-claude-vs-geminis" },
+                    { title: "C02E06 — Cero disparos vs pocos disparos", id: "c02e06-cero-disparos-vs-pocos-disparos" },
+                    { title: "C02E07 — Etiquetas XML para indicaciones", id: "c02e07-etiquetas-xml-para-indicaciones" },
+                    { title: "C02E08 — Ventana de contexto y tokens", id: "c02e08-ventana-de-contexto-y-tokens" },
+                    { title: "C02E09 — Puesta a tierra para evitar inventos", id: "c02e09-puesta-a-tierra-para-evitar-inventos" },
+                    { title: "C02E10 — Cadena de pensamiento", id: "c02e10-cadena-de-pensamiento" },
+                    { title: "C02E11 — Modelos de razonamiento ChatGPT", id: "c02e11-modelos-de-razonamiento-chat-gpt" },
+                    { title: "C02E12 — Encadenamiento de indicaciones", id: "c02e12-encadenamiento-de-indicaciones" },
+                    { title: "C02E13 — Playgrounds de IA", id: "c-02-e-13-playgrounds-de-ia" },
+                    { title: "C02E14 — Temperatura y Top-P", id: "c02e14-temperatura-y-top-p" },
+                    { title: "C02E15 — Avisos de imagen ChatGPT", id: "c02e15-avisos-de-imagen-chat-gpt" },
+                    { title: "C02E16 — Análisis de ventas ChatGPT Excel", id: "c02e16-analisis-de-ventas-chat-gpt-excel" }
+                ]
+            },
+            {
+                name: "C03 · PASARELA LFF TRANSFORMA VIDEOS",
+                chapters: [
+                    { title: "C03E01 — Como crear videos profesionales IA", id: "c03e01-como-crear-videos-profesionales-ia" },
+                    { title: "C03E02 — Los 4 componentes rápido efectivo", id: "c03e02-los-4-componentes-rapido-efectivo" },
+                    { title: "C03E03 — Prompts JSON para video IA", id: "c03e03-prompts-json-para-video-ia" },
+                    { title: "C03E04 — Como crear videos IA 5 minutos", id: "c03e04-como-crear-videos-ia-5-minutos" },
+                    { title: "C03E05 — Runway LFF transforma videos", id: "c-03-e-05-runway-lff-transforma-videos" },
+                    { title: "C03E06 — Storyboard Sketch to Video Higgsfield", id: "c03e06-storyboard-sketch-to-video-higgsfield" },
+                    { title: "C03E07 — Vídeos terror ochentero Luma Machine", id: "c03e07-videos-terror-ochentero-luma-machine" },
+                    { title: "C03E08 — Vídeos cinematográficos KlingAI", id: "c03e08-videos-cinematograficos-kling-ai" },
+                    { title: "C03E09 — Avatares Wan Higgsfield", id: "c03e09-avatares-wan-higgsfield" },
+                    { title: "C03E10 — Acto segundo anima rostro torso manos", id: "c03e10-acto-segundo-anima-rostro-torso-manos" },
+                    { title: "C03E11 — Comerciales emisión VEO3", id: "c03e11-comerciales-emision-veo3" },
+                    { title: "C03E12 — Videoblogs virales Veo3", id: "c03e12-videoblogs-virales-veo3" },
+                    { title: "C03E13 — Fórmulas videos virales Sora2", id: "c03e13-formulas-videos-virales-sora2" },
+                    { title: "C03E14 — Identidad digital cameos Sora2", id: "c03e14-identidad-digital-cameos-sora2" },
+                    { title: "C03E15 — Vídeos cinematográficos Hailuo AI", id: "c03e15-videos-cinematograficos-hailuo-ai" },
+                    { title: "C03E16 — Música cinematográfica Suno Udio", id: "c03e16-musica-cinematografica-suno-udio" }
+                ]
+            },
+            {
+                name: "C04 · ANÁLISIS DOCUMENTOS PERPLEJIDAD",
+                chapters: [
+                    { title: "C04E01 — Perplejidad respuestas fuentes verificables", id: "c04e01-perplejidad-respuestas-fuentes-verificables" },
+                    { title: "C04E02 — Conoce Perplejidad AI", id: "c04e02-conoce-perplejidad-ai" },
+                    { title: "C04E03 — Como elegir plan Perplejidad", id: "c04e03-como-elegir-plan-perplejidad" },
+                    { title: "C04E04 — Versiones Perplexity web escritorio móvil", id: "c04e04-versiones-perplexity-web-escritorio-movil" },
+                    { title: "C04E05 — Como hacer prompts Perplejidad", id: "c04e05-como-hacer-prompts-perplejidad" },
+                    { title: "C04E06 — Investigación profunda Perplejidad", id: "c04e06-investigacion-profunda-perplejidad" },
+                    { title: "C04E07 — Análisis documentos Perplejidad", id: "c-04-e-07-analisis-documentos-perplexity" },
+                    { title: "C04E08 — Combina Perplejidad con otras AI", id: "c04e08-combina-perplejidad-con-otras-ai" },
+                    { title: "C04E09 — Pantallas temáticas Perplejidad", id: "c04e09-pantallas-tematicas-perplejidad" },
+                    { title: "C04E10 — Espacios tareas programadas Perplejidad", id: "c04e10-espacios-tareas-programadas-perplejidad" },
+                    { title: "C04E11 — Crear aplicaciones HTML Perplejidad", id: "c04e11-crear-aplicaciones-html-perplejidad" },
+                    { title: "C04E12 — Recorte diario IA Perplejidad", id: "c04e12-recorte-diario-ia-perplejidad" },
+                    { title: "C04E13 — Perplexity Comet navegador Chrome", id: "c04e13-perplexity-comet-navegador-chrome" }
+                ]
+            },
+            {
+                name: "C05 · RETOQUE DIGITAL IMAGENES IA",
+                chapters: [
+                    { title: "C05E01 — Creación imágenes IA Marketing", id: "c05e01-creacion-imagenes-ia-marketing" },
+                    { title: "C05E02 — Creatividad AI Arte Marketing", id: "c05e02-creatividad-ai-arte-marketing" },
+                    { title: "C05E03 — Etica Responsabilidad Imágenes IA", id: "c05e03-etica-responsabilidad-imagenes-ia" },
+                    { title: "C05E04 — Formatos Aspectos Imágenes IA", id: "c05e04-formatos-aspectos-imagenes-ia" },
+                    { title: "C05E05 — Creación imágenes Modelos IA", id: "c05e05-creacion-imagenes-modelos-ia" },
+                    { title: "C05E06 — Anatomía Prompts Imágenes AI", id: "c05e06-anatomia-prompts-imagenes-ai" },
+                    { title: "C05E07 — Mejorando Imágenes IA", id: "c05e07-mejorando-imagenes-ia" },
+                    { title: "C05E08 — Imágenes Producto Flux IA", id: "c05e08-imagenes-producto-flux-ia" },
+                    { title: "C05E09 — Prototipado Productos Flux Photoshop", id: "c05e09-prototipado-productos-flux-photoshop" },
+                    { title: "C05E10 — Imágenes Producto Loras Flux", id: "c05e10-imagenes-producto-loras-flux" },
+                    { title: "C05E11 — Imágenes Personalizadas Modelos IA", id: "c05e11-imagenes-personalizadas-modelos-ia" },
+                    { title: "C05E12 — Creación imágenes Midjourney Discord", id: "c05e12-creacion-imagenes-midjourney-discord" },
+                    { title: "C05E13 — Interfaz web Midjourney", id: "c05e13-interfaz-web-midjourney" },
+                    { title: "C05E14 — Parámetros Avanzados Midjourney", id: "c05e14-parametros-avanzados-midjourney" },
+                    { title: "C05E15 — Imágenes Midjourney Estilización", id: "c05e15-imagenes-midjourney-parametros-estilizacion" },
+                    { title: "C05E16 — Midjourney Marketing Prototipado", id: "c05e16-midjourney-marketing-prototipado" },
+                    { title: "C05E17 — Retoque Digital Imágenes IA", id: "c-05-e-17-retoque-digital-imagenes-ia" }
+                ]
+            }
+        ];
 
         let flatPlaylist = [];
         let currentIndex = 0;
