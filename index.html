@@ -106,17 +106,19 @@
         function toggleCourse(idx) {
             document.getElementById(`course-${idx}`).classList.toggle('active');
         }
-
-     function loadVideo(index) {
+function loadVideo(index) {
     currentIndex = index;
     const video = flatPlaylist[currentIndex];
     
-    // Formato de embed directo y sencillo
-    const videoUrl = `https://archive.org/embed/${video.collectionId}/${video.file}`;
+    // Formato exacto para que el reproductor de Archive reconozca el archivo
+    const videoUrl = `https://archive.org/embed/${video.collectionId}?file=${video.file}`;
     
-    document.getElementById('main-player').src = videoUrl;
+    const player = document.getElementById('main-player');
+    player.src = videoUrl;
+    
     document.getElementById('display-title').textContent = video.title;
     
+    // Gestionar la clase visual de "reproduciendo"
     document.querySelectorAll('.video-item').forEach(el => el.classList.remove('playing'));
     const activeItem = document.getElementById(`item-${index}`);
     if (activeItem) activeItem.classList.add('playing');
