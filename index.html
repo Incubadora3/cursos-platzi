@@ -53,25 +53,26 @@
     </main>
 
     <script>
-      const courses = [
+     const courses = [
     {
         name: "C01 · VPN Y MFA EN EQUIPOS REMOTOS",
         collectionId: "c-01-e-16-vpn-y-mfa-en-equipos-remotos",
         chapters: [
-            { title: "C01E02 — Productividad", file: "C01E02-Productividad.mp4" },
+            { title: "C01E01 — Productividad", file: "C01E01-Productividad.mp4" },
+            { title: "C01E02 — Productividad II", file: "C01E02-Productividad.mp4" },
             { title: "C01E03 — Trabajo remoto modelos", file: "C01E03-Trabajo-remoto-modelos.mp4" },
             { title: "C01E04 — Como el micrófono", file: "C01E04-Como-el-microfono.mp4" },
             { title: "C01E05 — Acuerdos mentales", file: "C01E05-Acuerdos-mentales.mp4" },
             { title: "C01E06 — Chat vs correo", file: "C01E06-Chat-vs-correo.mp4" },
-            { title: "C01E08 — Protocolo de validación", file: "C01E08+%E2%80%94+Protocolo-de-validacion-para-instrucciones-claras.mp4" },
-            { title: "C01E09 — Mapeo digital de procesos", file: "C01E09+%E2%80%94+Mapeo-digital-de-procesos-en-equipos-remotos.mp4" },
-            { title: "C01E10 — Conectar herramientas", file: "C01E10+%E2%80%94+Conectar-Herramientas-de-trabajo-colaborativo.mp4" },
-            { title: "C01E11 — Sincroniza calendario y chat", file: "C01E11+%E2%80%94+Sincroniza-calendario-y-chat-para-proteger-tu-concentracion.mp4" },
-            { title: "C01E12 — Ceremonias de Scrum", file: "C01E12+%E2%80%94+Ceremonias-de-Scrum-en-equipos-remotos.mp4" },
-            { title: "C01E13 — Reclutamiento global", file: "C01E13+%E2%80%94+Reclutamiento-global-ventana-de-colaboracion-y-onboarding-remoto.mp4" },
-            { title: "C01E14 — Fases migrar trabajo remoto", file: "C01E14+%E2%80%94+Seis-fases-para-migrar-a-trabajo-remoto.mp4" },
-            { title: "C01E15 — Métricas actividad vs resultado", file: "C01E15+%E2%80%94+Metricas-de-actividad-vs-metricas-de-resultado.mp4" },
-            { title: "C01E16 — VPN y MFA", file: "C01E16+%E2%80%94+VPN-y-MFA-en-equipos-remotos.mp4" }
+            { title: "C01E08 — Protocolo de validación", file: "C01E08---Protocolo-de-validacion-para-instrucciones-claras.mp4" },
+            { title: "C01E09 — Mapeo digital de procesos", file: "C01E09---Mapeo-digital-de-procesos-en-equipos-remotos.mp4" },
+            { title: "C01E10 — Conectar herramientas", file: "C01E10---Conectar-Herramientas-de-trabajo-colaborativo.mp4" },
+            { title: "C01E11 — Sincroniza calendario y chat", file: "C01E11---Sincroniza-calendario-y-chat-para-proteger-tu-concentracion.mp4" },
+            { title: "C01E12 — Ceremonias de Scrum", file: "C01E12---Ceremonias-de-Scrum-en-equipos-remotos.mp4" },
+            { title: "C01E13 — Reclutamiento global", file: "C01E13---Reclutamiento-global-ventana-de-colaboracion-y-onboarding-remoto.mp4" },
+            { title: "C01E14 — Fases migrar trabajo remoto", file: "C01E14---Seis-fases-para-migrar-a-trabajo-remoto.mp4" },
+            { title: "C01E15 — Métricas actividad vs resultado", file: "C01E15---Metricas-de-actividad-vs-metricas-de-resultado.mp4" },
+            { title: "C01E16 — VPN y MFA", file: "C01E16---VPN-y-MFA-en-equipos-remotos.mp4" }
         ]
     }
 ];
@@ -106,18 +107,16 @@
             document.getElementById(`course-${idx}`).classList.toggle('active');
         }
 
-       function loadVideo(index) {
+     function loadVideo(index) {
     currentIndex = index;
     const video = flatPlaylist[currentIndex];
     
-    // Usamos encodeURI para que los símbolos especiales de los nombres no rompan el link
-    const fileName = encodeURI(video.file);
-    const videoUrl = `https://archive.org/embed/${video.collectionId}?file=${fileName}`;
+    // Formato de embed directo y sencillo
+    const videoUrl = `https://archive.org/embed/${video.collectionId}/${video.file}`;
     
     document.getElementById('main-player').src = videoUrl;
     document.getElementById('display-title').textContent = video.title;
     
-    // Gestionar la clase visual de "reproduciendo"
     document.querySelectorAll('.video-item').forEach(el => el.classList.remove('playing'));
     const activeItem = document.getElementById(`item-${index}`);
     if (activeItem) activeItem.classList.add('playing');
