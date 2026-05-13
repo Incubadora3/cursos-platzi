@@ -109,8 +109,8 @@
             currentIndex = index;
             const video = flatPlaylist[currentIndex];
             
-            // Usamos el parámetro t=0 para forzar la carga del video específico
-            const videoUrl = `https://archive.org/embed/${video.collectionId}&playlist=1&file=${video.file}`;
+            // NUEVO FORMATO DE URL: Más simple y directo
+            const videoUrl = `https://archive.org/download/${video.collectionId}/${video.file}`;
             
             const player = document.getElementById('main-player');
             player.src = videoUrl;
