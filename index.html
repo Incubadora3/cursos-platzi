@@ -96,6 +96,32 @@
                     { title: "C02E17 — Como evaluar respuestas LLM",     file: "C02E17-Como-evaluar-respuestas-LLM.mp4" },
                     { title: "C02E18 — Plantillas de prompts correos",   file: "C02E18-Plantillas-de-prompts-correos.mp4" }
                 ]
+            },
+            {
+                name: "C03 · VIDEOS CON IA: RUNWAY Y MÁS",
+                base: "https://archive.org/download/c-03-e-05-runway-lff-transforma-videos/",
+                chapters: [
+                    { title: "C03E01 — Como crear videos profesionales IA", file: "C03E01-Como-crear-videos-profesionales-IA.mp4" },
+                    { title: "C03E02 — Los 4 componentes prompt efectivo",   file: "C03E02-Los-4-componentes-prompt-efectivo.mp4" },
+                    { title: "C03E03 — Prompts JSON para video IA",          file: "C03E03-Prompts-JSON-para-video-IA.mp4" },
+                    { title: "C03E04 — Como crear videos IA 5 minutos",      file: "C03E04-Como-crear-videos-IA-5-minutos.mp4" },
+                    { title: "C03E05 — Runway LFF transforma videos",        file: "C03E05-Runway-LFF-transforma-videos.mp4" },
+                    { title: "C03E06 — Storyboard Sketch to Video Higgsfield",file: "C03E06-Storyboard-Sketch-to-Video-Higgsfield.mp4" },
+                    { title: "C03E07 — Videos terror ochentero Luma Machine",file: "C03E07-Videos-terror-ochentero-Luma-Machine.mp4" },
+                    { title: "C03E08 — Videos cinematograficos KlingAI",     file: "C03E08-Videos-cinematograficos-KlingAI.mp4" },
+                    { title: "C03E09 — Avatares Wan Higgsfield",             file: "C03E09-Avatares-Wan-Higgsfield.mp4" },
+                    { title: "C03E10 — Acto segundo anima rostro torso",     file: "C03E10-Acto-segundo-anima-rostro-torso-manos.mp4" },
+                    { title: "C03E11 — Comerciales transmision VEO3",        file: "C03E11-Comerciales-transmision-VEO3.mp4" },
+                    { title: "C03E12 — Videoblogs virales Veo3",             file: "C03E12-Videoblogs-virales-Veo3.mp4" },
+                    { title: "C03E13 — Formulas videos virales Sora2",       file: "C03E13-Fórmulas-videos-virales-Sora2.mp4" },
+                    { title: "C03E14 — Identidad digital cameos Sora2",      file: "C03E14-Identidad-digital-cameos-Sora2.mp4" },
+                    { title: "C03E15 — Videos cinematograficos Hailuo AI",   file: "C03E15-Videos-cinematográficos-Hailuo-AI.mp4" },
+                    { title: "C03E16 — Musica cinematografica Suno Udio",    file: "C03E16-Musica-cinematografica-Suno-Udio.mp4" },
+                    { title: "C03E17 — Voces profesionales 11Labs Adobe",    file: "C03E17-Voces-profesionales-11Labs-Adobe.mp4" },
+                    { title: "C03E18 — Transformacion videos Pica AI",       file: "C03E18-Transformacion-videos-Pica-AI.mp4" },
+                    { title: "C03E19 — Videos animados Krea Viggle",         file: "C03E19-Videos-animados-Krea-Viggle.mp4" },
+                    { title: "C03E20 — Casos reales IA cine publicidad",     file: "C03E20-Casos-reales-IA-cine-publicidad.mp4" }
+                ]
             }
         ];
 
@@ -118,43 +144,3 @@
                     '<div class="chapter-list" id="course-' + cIdx + '">' +
                         chaptersHTML +
                     '</div>';
-                menu.appendChild(section);
-            });
-            var saved = localStorage.getItem('lastVideo');
-            loadVideo(saved !== null ? parseInt(saved) : 0);
-        }
-
-        function toggleCourse(idx) {
-            var list = document.getElementById('course-' + idx);
-            var arrow = document.getElementById('arrow-' + idx);
-            list.classList.toggle('active');
-            arrow.innerHTML = list.classList.contains('active') ? '&#9660;' : '&#9654;';
-        }
-
-        function loadVideo(index) {
-            currentIndex = index;
-            var video = flatPlaylist[currentIndex];
-            var player = document.getElementById('main-player');
-            player.src = video.url;
-            player.load();
-            player.play().catch(function(){});
-            document.getElementById('display-title').textContent = video.title;
-            document.getElementById('display-counter').textContent = 'Clase ' + (currentIndex + 1) + ' de ' + flatPlaylist.length;
-            document.querySelectorAll('.video-item').forEach(function(el){ el.classList.remove('playing'); });
-            var activeItem = document.getElementById('item-' + index);
-            if (activeItem) {
-                activeItem.classList.add('playing');
-                activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-            }
-            localStorage.setItem('lastVideo', currentIndex);
-        }
-
-        function changeVideo(dir) {
-            var next = currentIndex + dir;
-            if (next >= 0 && next < flatPlaylist.length) loadVideo(next);
-        }
-
-        window.onload = init;
-    </script>
-</body>
-</html>
