@@ -9,43 +9,34 @@
         :root { --bg: #0a1628; --sidebar: #0d1f3a; --accent: #e8a020; --text: #e8e8e8; --border: rgba(255,255,255,0.07); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; overflow: hidden; }
-
         .sidebar { width: 320px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; flex-shrink: 0; }
         .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); text-align: center; }
         .sidebar-header img { height: 32px; }
-
         .course-header { padding: 15px 20px; cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--accent); background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
         .course-header:hover { background: rgba(232,160,32,0.1); }
-
         .chapter-list { display: none; background: rgba(0,0,0,0.3); }
         .chapter-list.active { display: block; }
-
         .video-item { padding: 10px 25px; cursor: pointer; font-size: 0.8rem; color: #aaa; border-bottom: 1px solid rgba(255,255,255,0.02); transition: 0.2s; }
         .video-item:hover { color: #fff; background: #112240; }
         .video-item.playing { color: var(--accent); background: #152a4a; font-weight: bold; border-left: 3px solid var(--accent); }
-
         .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
         .topbar { padding: 15px 25px; background: #0d1f3a; border-bottom: 1px solid var(--border); flex-shrink: 0; }
         .topbar-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 1px; color: #fff; }
         .topbar-counter { font-size: 0.7rem; color: #556; margin-top: 2px; }
-
         .video-wrapper { flex: 1; background: #000; min-height: 0; }
         #main-player { width: 100%; height: 100%; outline: none; background: #000; }
-
         .controls { padding: 20px; display: flex; justify-content: center; gap: 15px; background: #0d1f3a; border-top: 1px solid var(--border); flex-shrink: 0; }
         .btn { padding: 12px 35px; border-radius: 50px; border: none; background: #22334d; color: #fff; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .btn:hover { background: var(--accent); transform: translateY(-2px); }
     </style>
 </head>
 <body>
-
     <nav class="sidebar">
         <div class="sidebar-header">
             <img src="incubadora_logo_blanco.png" alt="INCUBADORA">
         </div>
         <div id="accordion-menu"></div>
     </nav>
-
     <main class="main">
         <div class="topbar">
             <div id="display-title" class="topbar-title">Selecciona una clase</div>
@@ -59,13 +50,11 @@
             <button class="btn" onclick="changeVideo(1)">Siguiente &#8594;</button>
         </div>
     </main>
-
     <script>
-        const BASE = "https://archive.org/download/c-01-e-16-vpn-y-mfa-en-equipos-remotos/";
-
         const courses = [
             {
                 name: "C01 · PRODUCTIVIDAD Y TRABAJO REMOTO",
+                base: "https://archive.org/download/c-01-e-16-vpn-y-mfa-en-equipos-remotos/",
                 chapters: [
                     { title: "C01E01 — Productividad",                  file: "C01E01-Productividad.mp4" },
                     { title: "C01E02 — Productividad II",                file: "C01E02-Productividad.mp4" },
@@ -83,14 +72,31 @@
                     { title: "C01E15 — Metricas actividad vs resultado", file: "C01E15-Metricas-actividad-vs-resultado.mp4" },
                     { title: "C01E16 — VPN y MFA",                      file: "C01E16-VPN-y-MFA.mp4" }
                 ]
+            },
+            {
+                name: "C02 · PROMPT ENGINEERING CON CHATGPT",
+                base: "https://archive.org/download/c-02-e-13-playgrounds-de-ia/",
+                chapters: [
+                    { title: "C02E01 — Estructura de prompts",           file: "C02E01-Estructura-de-prompts.mp4" },
+                    { title: "C02E02 — Como crear el prompt perfecto",   file: "C02E02-Como-crear-el-prompt-perfecto.mp4" },
+                    { title: "C02E03 — Que son las incrustaciones",      file: "C02E03-Que-son-las-incrustaciones.mp4" },
+                    { title: "C02E04 — Rol en prompts",                  file: "C02E04-Rol-en-prompts.mp4" },
+                    { title: "C02E05 — ChatGPT vs Claude vs Gemini",     file: "C02E05-ChatGPT-vs-Claude-vs-Gemini.mp4" },
+                    { title: "C02E06 — Zero shot vs few shot",           file: "C02E06-Zero-shot-vs-few-shot.mp4" },
+                    { title: "C02E07 — Etiquetas XML",                   file: "C02E07-Etiquetas-XML.mp4" },
+                    { title: "C02E08 — Ventana de contexto y tokens",    file: "C02E08-Ventana-de-contexto-y-tokens.mp4" },
+                    { title: "C02E09 — Puesta a tierra inventos",        file: "C02E09-Puesta-a-tierra-inventos.mp4" },
+                    { title: "C02E10 — Cadena de pensamiento",           file: "C02E10-Cadena-de-pensamiento.mp4" },
+                    { title: "C02E11 — Modelos de razonamiento ChatGPT", file: "C02E11-Modelos-de-razonamiento-ChatGPT.mp4" },
+                    { title: "C02E12 — Encadenamiento de indicaciones",  file: "C02E12-Encadenamiento-de-indicaciones.mp4" },
+                    { title: "C02E13 — Playgrounds de IA",               file: "C02E13-Playgrounds-de-IA.mp4" },
+                    { title: "C02E14 — Temperatura y Top P",             file: "C02E14-Temperatura-y-Top-P.mp4" },
+                    { title: "C02E15 — Avisos de imagen ChatGPT",        file: "C02E15-Avisos-de-imagen-ChatGPT.mp4" },
+                    { title: "C02E16 — Analisis de ventas ChatGPT Excel",file: "C02E16-Analisis-de-ventas-ChatGPT-Excel.mp4" },
+                    { title: "C02E17 — Como evaluar respuestas LLM",     file: "C02E17-Como-evaluar-respuestas-LLM.mp4" },
+                    { title: "C02E18 — Plantillas de prompts correos",   file: "C02E18-Plantillas-de-prompts-correos.mp4" }
+                ]
             }
-            // Agrega C02 aqui cuando este listo:
-            // ,{
-            //     name: "C02 · PROMPT ENGINEERING CON CHATGPT",
-            //     chapters: [
-            //         { title: "C02E01 — Nombre", file: "C02E01-Nombre.mp4" },
-            //     ]
-            // }
         ];
 
         let flatPlaylist = [];
@@ -101,21 +107,19 @@
             courses.forEach(function(course, cIdx) {
                 var chaptersHTML = course.chapters.map(function(ch) {
                     var globalIdx = flatPlaylist.length;
-                    flatPlaylist.push({ title: ch.title, url: BASE + ch.file });
+                    flatPlaylist.push({ title: ch.title, url: course.base + ch.file });
                     return '<div class="video-item" id="item-' + globalIdx + '" onclick="loadVideo(' + globalIdx + ')">' + ch.title + '</div>';
                 }).join('');
-
                 var section = document.createElement('div');
                 section.innerHTML =
                     '<div class="course-header" onclick="toggleCourse(' + cIdx + ')">' +
                         course.name + ' <span id="arrow-' + cIdx + '">&#9660;</span>' +
                     '</div>' +
-                    '<div class="chapter-list active" id="course-' + cIdx + '">' +
+                    '<div class="chapter-list" id="course-' + cIdx + '">' +
                         chaptersHTML +
                     '</div>';
                 menu.appendChild(section);
             });
-
             var saved = localStorage.getItem('lastVideo');
             loadVideo(saved !== null ? parseInt(saved) : 0);
         }
@@ -134,10 +138,8 @@
             player.src = video.url;
             player.load();
             player.play().catch(function(){});
-
             document.getElementById('display-title').textContent = video.title;
             document.getElementById('display-counter').textContent = 'Clase ' + (currentIndex + 1) + ' de ' + flatPlaylist.length;
-
             document.querySelectorAll('.video-item').forEach(function(el){ el.classList.remove('playing'); });
             var activeItem = document.getElementById('item-' + index);
             if (activeItem) {
