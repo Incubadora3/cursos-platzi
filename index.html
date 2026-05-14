@@ -9,29 +9,30 @@
         :root { --bg: #0a1628; --sidebar: #0d1f3a; --accent: #e8a020; --text: #e8e8e8; --border: rgba(255,255,255,0.07); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; overflow: hidden; }
-        
-        .sidebar { width: 320px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; }
+
+        .sidebar { width: 320px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; flex-shrink: 0; }
         .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); text-align: center; }
         .sidebar-header img { height: 32px; }
-        
+
         .course-header { padding: 15px 20px; cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--accent); background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .course-header:hover { background: rgba(232, 160, 32, 0.1); }
-        
+        .course-header:hover { background: rgba(232,160,32,0.1); }
+
         .chapter-list { display: none; background: rgba(0,0,0,0.3); }
         .chapter-list.active { display: block; }
-        
+
         .video-item { padding: 10px 25px; cursor: pointer; font-size: 0.8rem; color: #aaa; border-bottom: 1px solid rgba(255,255,255,0.02); transition: 0.2s; }
         .video-item:hover { color: #fff; background: #112240; }
         .video-item.playing { color: var(--accent); background: #152a4a; font-weight: bold; border-left: 3px solid var(--accent); }
 
-        .main { flex: 1; display: flex; flex-direction: column; }
-        .topbar { padding: 15px 25px; background: #0d1f3a; border-bottom: 1px solid var(--border); }
+        .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .topbar { padding: 15px 25px; background: #0d1f3a; border-bottom: 1px solid var(--border); flex-shrink: 0; }
         .topbar-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 1px; color: #fff; }
-        
-        .video-wrapper { flex: 1; background: #000; position: relative; }
-        iframe { width: 100%; height: 100%; border: none; }
-        
-        .controls { padding: 20px; display: flex; justify-content: center; gap: 15px; background: #0d1f3a; border-top: 1px solid var(--border); }
+        .topbar-counter { font-size: 0.7rem; color: #556; margin-top: 2px; }
+
+        .video-wrapper { flex: 1; background: #000; min-height: 0; }
+        #main-player { width: 100%; height: 100%; outline: none; background: #000; }
+
+        .controls { padding: 20px; display: flex; justify-content: center; gap: 15px; background: #0d1f3a; border-top: 1px solid var(--border); flex-shrink: 0; }
         .btn { padding: 12px 35px; border-radius: 50px; border: none; background: #22334d; color: #fff; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .btn:hover { background: var(--accent); transform: translateY(-2px); }
     </style>
@@ -39,42 +40,57 @@
 <body>
 
     <nav class="sidebar">
-        <div class="sidebar-header"><img src="https://incubadora3.github.io/cursos-platzi/logo.png" alt="INCUBADORA"></div>
+        <div class="sidebar-header">
+            <img src="incubadora_logo_blanco.png" alt="INCUBADORA">
+        </div>
         <div id="accordion-menu"></div>
     </nav>
 
     <main class="main">
-        <div class="topbar"><div id="display-title" class="topbar-title">Selecciona una clase</div></div>
-        <div class="video-wrapper"><iframe id="main-player" allowfullscreen></iframe></div>
+        <div class="topbar">
+            <div id="display-title" class="topbar-title">Selecciona una clase</div>
+            <div id="display-counter" class="topbar-counter"></div>
+        </div>
+        <div class="video-wrapper">
+            <video id="main-player" controls></video>
+        </div>
         <div class="controls">
-            <button class="btn" onclick="changeVideo(-1)">⬅ Anterior</button>
-            <button class="btn" onclick="changeVideo(1)">Siguiente ➡</button>
+            <button class="btn" onclick="changeVideo(-1)">&#8592; Anterior</button>
+            <button class="btn" onclick="changeVideo(1)">Siguiente &#8594;</button>
         </div>
     </main>
 
     <script>
-      const courses = [
+        const BASE = "https://archive.org/download/c-01-e-16-vpn-y-mfa-en-equipos-remotos/";
+
+        const courses = [
             {
-                name: "C01 · VPN Y MFA EN EQUIPOS REMOTOS",
-                collectionId: "c-01-e-16-vpn-y-mfa-en-equipos-remotos",
+                name: "C01 · PRODUCTIVIDAD Y TRABAJO REMOTO",
                 chapters: [
-                    { title: "C01E01 — Productividad", file: "C01E01-Productividad.mp4" },
-                    { title: "C01E02 — Productividad II", file: "C01E02-Productividad.mp4" },
-                    { title: "C01E03 — Trabajo remoto modelos", file: "C01E03-Trabajo-remoto-modelos.mp4" },
-                    { title: "C01E04 — Como el micrófono", file: "C01E04-Como-el-microfono.mp4" },
-                    { title: "C01E05 — Acuerdos mentales", file: "C01E05-Acuerdos-mentales.mp4" },
-                    { title: "C01E06 — Chat vs correo", file: "C01E06-Chat-vs-correo.mp4" },
-                    { title: "C01E08 — Protocolo de validación", file: "C01E08-Protocolo-de-validacion-para-instrucciones-claras.mp4" },
-                    { title: "C01E09 — Mapeo digital de procesos", file: "C01E09-Mapeo-digital-de-procesos-en-equipos-remotos.mp4" },
-                    { title: "C01E10 — Conectar herramientas", file: "C01E10-Conectar-Herramientas-de-trabajo-colaborativo.mp4" },
-                    { title: "C01E11 — Sincroniza calendario y chat", file: "C01E11-Sincroniza-calendario-y-chat-para-proteger-tu-concentracion.mp4" },
-                    { title: "C01E12 — Ceremonias de Scrum", file: "C01E12-Ceremonias-de-Scrum-en-equipos-remotos.mp4" },
-                    { title: "C01E13 — Reclutamiento global", file: "C01E13-Reclutamiento-global-ventana-de-colaboracion-y-onboarding-remoto.mp4" },
-                    { title: "C01E14 — Fases migrar trabajo remoto", file: "C01E14-Seis-fases-para-migrar-a-trabajo-remoto.mp4" },
-                    { title: "C01E15 — Métricas actividad vs resultado", file: "C01E15-Metricas-de-actividad-vs-metricas-de-resultado.mp4" },
-                    { title: "C01E16 — VPN y MFA", file: "C01E16-VPN-y-MFA-en-equipos-remotos.mp4" }
+                    { title: "C01E01 — Productividad",                  file: "C01E01-Productividad.mp4" },
+                    { title: "C01E02 — Productividad II",                file: "C01E02-Productividad.mp4" },
+                    { title: "C01E03 — Trabajo remoto modelos",          file: "C01E03-Trabajo-remoto-modelos.mp4" },
+                    { title: "C01E04 — Como el microfono",               file: "C01E04-Como-el-microfono.mp4" },
+                    { title: "C01E05 — Acuerdos mentales",               file: "C01E05-Acuerdos-mentales.mp4" },
+                    { title: "C01E06 — Chat vs correo",                  file: "C01E06-Chat-vs-correo.mp4" },
+                    { title: "C01E08 — Protocolo de validacion",         file: "C01E08-Protocolo-de-validacion.mp4" },
+                    { title: "C01E09 — Mapeo digital de procesos",       file: "C01E09-Mapeo-digital-de-procesos.mp4" },
+                    { title: "C01E10 — Conectar herramientas",           file: "C01E10-Conectar-herramientas.mp4" },
+                    { title: "C01E11 — Sincroniza calendario",           file: "C01E11-Sincroniza-calendario.mp4" },
+                    { title: "C01E12 — Ceremonias de Scrum",             file: "C01E12-Ceremonias-de-Scrum.mp4" },
+                    { title: "C01E13 — Reclutamiento global",            file: "C01E13-Reclutamiento-global.mp4" },
+                    { title: "C01E14 — Seis fases trabajo remoto",       file: "C01E14-Seis-fases-trabajo-remoto.mp4" },
+                    { title: "C01E15 — Metricas actividad vs resultado", file: "C01E15-Metricas-actividad-vs-resultado.mp4" },
+                    { title: "C01E16 — VPN y MFA",                      file: "C01E16-VPN-y-MFA.mp4" }
                 ]
             }
+            // Agrega C02 aqui cuando este listo:
+            // ,{
+            //     name: "C02 · PROMPT ENGINEERING CON CHATGPT",
+            //     chapters: [
+            //         { title: "C02E01 — Nombre", file: "C02E01-Nombre.mp4" },
+            //     ]
+            // }
         ];
 
         let flatPlaylist = [];
@@ -82,51 +98,58 @@
 
         function init() {
             const menu = document.getElementById('accordion-menu');
-            courses.forEach((course, cIdx) => {
-                const section = document.createElement('div');
-                section.innerHTML = `
-                    <div class="course-header" onclick="toggleCourse(${cIdx})">
-                        ${course.name} <span>▼</span>
-                    </div>
-                    <div class="chapter-list active" id="course-${cIdx}">
-                        ${course.chapters.map((ch) => {
-                            const globalIdx = flatPlaylist.length;
-                            flatPlaylist.push({ ...ch, collectionId: course.collectionId });
-                            return `<div class="video-item" id="item-${globalIdx}" onclick="loadVideo(${globalIdx})">${ch.title}</div>`;
-                        }).join('')}
-                    </div>
-                `;
+            courses.forEach(function(course, cIdx) {
+                var chaptersHTML = course.chapters.map(function(ch) {
+                    var globalIdx = flatPlaylist.length;
+                    flatPlaylist.push({ title: ch.title, url: BASE + ch.file });
+                    return '<div class="video-item" id="item-' + globalIdx + '" onclick="loadVideo(' + globalIdx + ')">' + ch.title + '</div>';
+                }).join('');
+
+                var section = document.createElement('div');
+                section.innerHTML =
+                    '<div class="course-header" onclick="toggleCourse(' + cIdx + ')">' +
+                        course.name + ' <span id="arrow-' + cIdx + '">&#9660;</span>' +
+                    '</div>' +
+                    '<div class="chapter-list active" id="course-' + cIdx + '">' +
+                        chaptersHTML +
+                    '</div>';
                 menu.appendChild(section);
             });
-            loadVideo(0);
+
+            var saved = localStorage.getItem('lastVideo');
+            loadVideo(saved !== null ? parseInt(saved) : 0);
         }
 
         function toggleCourse(idx) {
-            document.getElementById(`course-${idx}`).classList.toggle('active');
+            var list = document.getElementById('course-' + idx);
+            var arrow = document.getElementById('arrow-' + idx);
+            list.classList.toggle('active');
+            arrow.innerHTML = list.classList.contains('active') ? '&#9660;' : '&#9654;';
         }
 
         function loadVideo(index) {
             currentIndex = index;
-            const video = flatPlaylist[currentIndex];
-            
-            // NUEVO FORMATO DE URL: Más simple y directo
-            const videoUrl = `https://archive.org/download/${video.collectionId}/${video.file}`;
-            
-            const player = document.getElementById('main-player');
-            player.src = videoUrl;
-            
+            var video = flatPlaylist[currentIndex];
+            var player = document.getElementById('main-player');
+            player.src = video.url;
+            player.load();
+            player.play().catch(function(){});
+
             document.getElementById('display-title').textContent = video.title;
-            
-            document.querySelectorAll('.video-item').forEach(el => el.classList.remove('playing'));
-            const activeItem = document.getElementById(`item-${index}`);
-            if (activeItem) activeItem.classList.add('playing');
+            document.getElementById('display-counter').textContent = 'Clase ' + (currentIndex + 1) + ' de ' + flatPlaylist.length;
+
+            document.querySelectorAll('.video-item').forEach(function(el){ el.classList.remove('playing'); });
+            var activeItem = document.getElementById('item-' + index);
+            if (activeItem) {
+                activeItem.classList.add('playing');
+                activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            }
+            localStorage.setItem('lastVideo', currentIndex);
         }
 
         function changeVideo(dir) {
-            let next = currentIndex + dir;
-            if (next >= 0 && next < flatPlaylist.length) {
-                loadVideo(next);
-            }
+            var next = currentIndex + dir;
+            if (next >= 0 && next < flatPlaylist.length) loadVideo(next);
         }
 
         window.onload = init;
