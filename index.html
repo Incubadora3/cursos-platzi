@@ -296,7 +296,7 @@
             courses.forEach(function(course, cIdx) {
                 var chaptersHTML = course.chapters.map(function(ch) {
                     var globalIdx = flatPlaylist.length;
-                   ch.title.replace(/^C\d+[ES]\d+\s*-\s*/i, '')
+                   ch.title.replace(/^[CS]\d+[ES]?\d*\s*-\s*/i, '')
                     return '<div class="video-item" id="item-' + globalIdx + '" onclick="loadVideo(' + globalIdx + ')">' + ch.title + '</div>';
                 }).join('');
                 var section = document.createElement('div');
