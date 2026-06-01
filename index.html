@@ -296,13 +296,13 @@
             courses.forEach(function(course, cIdx) {
                 var chaptersHTML = course.chapters.map(function(ch) {
                     var globalIdx = flatPlaylist.length;
-                   ch.title
+                   flatPlaylist.push({ title: ch.title, url: course.base + ch.file });
                     return '<div class="video-item" id="item-' + globalIdx + '" onclick="loadVideo(' + globalIdx + ')">' + ch.title + '</div>';
                 }).join('');
                 var section = document.createElement('div');
                 section.innerHTML =
                     '<div class="course-header" onclick="toggleCourse(' + cIdx + ')">' +
-                    course.name
+                    course.name +
                     '</div>' +
                     '<div class="chapter-list" id="course-' + cIdx + '">' +
                         chaptersHTML +
