@@ -296,13 +296,13 @@
             courses.forEach(function(course, cIdx) {
                 var chaptersHTML = course.chapters.map(function(ch) {
                     var globalIdx = flatPlaylist.length;
-                    flatPlaylist.push({ title: ch.title, url: course.base + ch.file });
+                   ch.title.replace(/^C\d+[ES]\d+\s*-\s*/i, '')
                     return '<div class="video-item" id="item-' + globalIdx + '" onclick="loadVideo(' + globalIdx + ')">' + ch.title + '</div>';
                 }).join('');
                 var section = document.createElement('div');
                 section.innerHTML =
                     '<div class="course-header" onclick="toggleCourse(' + cIdx + ')">' +
-                        course.name + ' <span id="arrow-' + cIdx + '">&#9660;</span>' +
+                     course.name.replace(/^C\d+\s*-\s*/i, '')
                     '</div>' +
                     '<div class="chapter-list" id="course-' + cIdx + '">' +
                         chaptersHTML +
