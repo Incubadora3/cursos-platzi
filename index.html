@@ -327,7 +327,7 @@
             player.src = video.url;
             player.load();
             player.play().catch(function(){});
-            document.getElementById('display-title').textContent = video.title;
+            document.getElementById('display-title').textContent = video.title.replace(/^C\d+[ES]\d+\s*-\s*/, '');
             document.getElementById('display-counter').textContent = 'Clase ' + (currentIndex + 1) + ' de ' + flatPlaylist.length;
             document.querySelectorAll('.video-item').forEach(function(el){ el.classList.remove('playing'); });
             var activeItem = document.getElementById('item-' + index);
