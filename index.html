@@ -302,7 +302,7 @@
                 var section = document.createElement('div');
                 section.innerHTML =
                     '<div class="course-header" onclick="toggleCourse(' + cIdx + ')">' +
-                    course.name +
+                    course.name.replace(/^C\d+\s*-\s*/, '') +
                     '</div>' +
                     '<div class="chapter-list" id="course-' + cIdx + '">' +
                         chaptersHTML +
