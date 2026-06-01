@@ -297,7 +297,7 @@
                 var chaptersHTML = course.chapters.map(function(ch) {
                     var globalIdx = flatPlaylist.length;
                    flatPlaylist.push({ title: ch.title, url: course.base + ch.file });
-                    return '<div class="video-item" id="item-' + globalIdx + '" onclick="loadVideo(' + globalIdx + ')">' + ch.title.replace(/^C\d+E\d+\s*-\s*/, '') + '</div>';
+                    return '<div class="video-item" id="item-' + globalIdx + '" onclick="loadVideo(' + globalIdx + ')">' + ch.title.replace(/^C\d+[ES]\d+\s*-\s*/, '') + '</div>';
                 }).join('');
                 var section = document.createElement('div');
                 section.innerHTML =
