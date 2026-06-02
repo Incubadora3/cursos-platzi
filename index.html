@@ -9,7 +9,7 @@
         :root { --bg: #0a1628; --: #0d1f3a; --accent: #e8a020; --text: #e8e8e8; --border: rgba(255,255,255,0.07); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; overflow: hidden; background-image: url(fondoia.jpg); background-size: cover; background-position: center; background-attachment: fixed; }
-        . .sidebar.hidden { width: 0; overflow: hidden; } .sidebar { width: 320px; background: var(--); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; flex-shrink: 0; }
+        . .sidebar.hidden { width: 0 !important; min-width: 0 !important; overflow: hidden; padding: 0 !important; } .sidebar { width: 320px; background: var(--); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; flex-shrink: 0; }
         .-header { padding: 20px; border-bottom: 1px solid var(--border); text-align: center; }
         .-header img { height: 32px; }
         .course-header { padding: 15px 20px; cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--accent); background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
