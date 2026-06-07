@@ -290,7 +290,7 @@
         var flatPlaylist = [];
         var currentIndex = 0;
 
-        function init() {
+        function init(startIndex) {
             var menu = document.getElementById('accordion-menu');
             courses.forEach(function(course, cIdx) {
                 var chaptersHTML = course.chapters.map(function(ch) {
