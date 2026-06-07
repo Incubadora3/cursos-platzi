@@ -334,7 +334,7 @@
                 activeItem.classList.add('playing');
                 activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
             }
-            sessionStorage.setItem('lastVideo', currentIndex);
+            sessionStorage.setItem('lastVideo', currentIndex);const ue=sessionStorage.getItem('userEmail');if(ue){const ub=API+'?callback=cb&data='+encodeURIComponent(JSON.stringify({action:'saveprogress',correo:ue,index:currentIndex}));window.cb=function(){};document.querySelectorAll('script[data-jsonp]').forEach(s=>s.remove());const us=document.createElement('script');us.setAttribute('data-jsonp','1');us.src=ub;document.head.appendChild(us);}
         }
 
         function changeVideo(dir) {
