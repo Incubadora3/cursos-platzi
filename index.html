@@ -309,7 +309,7 @@
                 menu.appendChild(section);
             });
             var saved = sessionStorage.getItem('lastVideo');
-            loadVideo(saved !== null ? parseInt(saved) : 0);
+            loadVideo(saved);
         }
 
         function toggleCourse(idx) {
