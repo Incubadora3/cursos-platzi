@@ -324,7 +324,7 @@
             var video = flatPlaylist[currentIndex];
             var player = document.getElementById('main-player');
             player.src = video.url;
-            player.load(); document.getElementById('main-player').onended = function(){ var ap=window.autoplay; changeVideo(1); if(ap){setTimeout(function(){document.getElementById('main-player').play().catch(function(){});},300);} };
+            player.load(); player.onended = function(){ if(window.autoplay){ var next=currentIndex+1; if(next<flatPlaylist.length){currentIndex=next;var v=flatPlaylist[next];player.src=v.url;player.load();player.oncanplay=function(){player.play().catch(function(){});player.oncanplay=null;};document.getElementById('display-title').textContent=v.title.replace(/^C\d+[ES]\d+\s*-\s*/,'');document.getElementById('display-counter').textContent='Clase '+(next+1)+' de '+flatPlaylist.length;document.querySelectorAll('.video-item').forEach(function(el){el.classList.remove('playing');});var ai=document.getElementById('item-'+next);if(ai){ai.classList.add('playing');ai.scrollIntoView({block:'nearest',behavior:'smooth'});}} } };
             // player.play().catch(function(){});
             document.getElementById('display-title').textContent = video.title.replace(/^C\d+[ES]\d+\s*-\s*/, '');
             document.getElementById('display-counter').textContent = 'Clase ' + (currentIndex + 1) + ' de ' + flatPlaylist.length;
